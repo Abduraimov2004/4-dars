@@ -1,0 +1,67 @@
+"""
+{% extends 'page_wrapper.html' %}
+{% block page %}
+    <div class="page_title_section float_left">
+        <div class="page_header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+                        <h1>
+                            {% if form_action == 'list' %}
+                                Tag List
+                            {% elif form_action == 'create' %}
+                                Create Tag
+                            {% elif form_action == 'update' %}
+                                Update Tag
+                            {% elif form_action == 'delete' %}
+                                Delete Tag
+                            {% endif %}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="blog_wrapper float_left">
+        <div class="container">
+            <div class="row">
+                {% if form_action == 'list' %}
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <ul>
+                            {% for tag in tags %}
+                                <li>{{ tag.title }}</li>
+                            {% endfor %}
+                        </ul>
+                        <a href="{% url 'tag-create' %}" class="btn btn-primary">Add New Tag</a>
+                    </div>
+                {% elif form_action == 'create' or form_action == 'update' %}
+                    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div class="form-group">
+                                <button class="btn btn-success" type="submit">
+                                    {% if form_action == 'create' %}Add{% else %}Save{% endif %}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                {% elif form_action == 'delete' %}
+                    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <p>Are you sure you want to delete "{{ object }}"?</p>
+                            <div class="form-group">
+                                <button class="btn btn-danger" type="submit">Confirm Delete</button>
+                                <a href="{% url 'tag-list' %}" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+"""
